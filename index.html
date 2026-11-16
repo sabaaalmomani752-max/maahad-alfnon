@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معهد الفنون | اكتشف شغفك الإبداعي</title>
+    <meta name="description" content="معهد الفنون الرائد لتعلم الفنون البصرية، الرسم، التصميم الرقمي، الخط العربي، والنحت على يد نخبة من الفنانين المحترفين.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        artPurple: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        artBronze: {
+                            500: '#b45309',
+                            600: '#92400e',
+                            700: '#78350f',
+                        },
+                        darkBg: '#0f0e17',
+                        cardBg: '#181622'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #0f0e17;
+            color: #f3f4f6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0e17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5b21b6;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+
+        /* Fade-in Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .glass-nav {
+            background: rgba(15, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-100 antialiased selection:bg-artPurple-600 selection:text-white">
+
+    <!-- Custom Notification Box (Replacing alert) -->
+    <div id="notification-box" class="fixed bottom-6 left-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 max-w-sm bg-gray-900 border border-artPurple-600/50 p-4 rounded-xl shadow-2xl flex items-center gap-3">
+        <div id="notification-icon" class="text-2xl text-artPurple-600">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <h4 id="notification-title" class="font-bold text-sm text-white">تم بنجاح</h4>
+            <p id="notification-message" class="text-xs text-gray-300">رسالة توضيحية هنا...</p>
+        </div>
+    </div>
+
+    <!-- Header & Sticky Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-artPurple-800 to-artBronze-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-palette text-white text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold bg-gradient-to-r from-white via-artPurple-100 to-artBronze-500 bg-clip-text text-transparent">معهد الفنون</span>
+                    <span class="block text-[10px] tracking-widest text-artPurple-400 font-semibold uppercase">Art Institute</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#hero" class="nav-link text-sm font-semibold text-artPurple-400 hover:text-white transition-colors">الرئيسية</a>
+                <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">من نحن</a>
+                <a href="#courses" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">دوراتنا</a>
+                <a href="#gallery" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">المعرض</a>
+                <a href="#pricing" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">الأسعار</a>
+                <a href="#testimonials" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">آراء العملاء</a>
+                <a href="#contact" class="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors">تواصل معنا</a>
+            </nav>
+
+            <!-- Action Button & Hamburger Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#courses" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-artPurple-700 to-artBronze-600 hover:from-artPurple-600 hover:to-artBronze-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-artPurple-900/30 transition-all hover:scale-105">
+                    <span>احجز دورتك</span>
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" aria-label="قائمة التنقل" class="md:hidden text-white text-2xl p-2 rounded-lg hover:bg-white/5 transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg border-b border-white/10 px-6 py-5 space-y-4 animate-fadeIn">
+            <a href="#hero" class="mobile-link block text-base font-semibold text-artPurple-400 hover:text-white">الرئيسية</a>
+            <a href="#about" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">من نحن</a>
+            <a href="#courses" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">دوراتنا</a>
+            <a href="#gallery" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">المعرض</a>
+            <a href="#pricing" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">الأسعار</a>
+            <a href="#testimonials" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">آراء العملاء</a>
+            <a href="#contact" class="mobile-link block text-base font-medium text-gray-300 hover:text-white">تواصل معنا</a>
+            <div class="pt-2">
+                <a href="#courses" class="w-full block text-center bg-artPurple-700 hover:bg-artPurple-600 text-white font-bold py-3 rounded-xl shadow-md">احجز دورتك الآن</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
+            <!-- Background Decorative Glows -->
+            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-artPurple-800/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-artBronze-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Hero Content -->
+                    <div class="lg:col-span-7 text-center lg:text-right space-y-6">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-artPurple-900/40 border border-artPurple-600/30 text-artPurple-300 text-xs sm:text-sm font-semibold">
+                            <i class="fa-solid fa-wand-magic-sparkles text-artBronze-500"></i>
+                            <span>اكتشف شغفك الإبداعي.. حيث تحيا الفنون.</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            احترف الفنون على يد <span class="bg-gradient-to-r from-artPurple-400 to-artBronze-500 bg-clip-text text-transparent">نخبة من الفنانين</span> المحترفين
+                        </h1>
+                        <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            انضم إلى معهد الفنون واكتشف قدراتك الكامنة في الرسم، النحت، التصميم الرقمي، وفن الخط العربي. بيئة إبداعية متكاملة مصممة خصيصاً لتطوير مواهبك.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <a href="#courses" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-artPurple-700 to-artBronze-600 hover:from-artPurple-600 hover:to-artBronze-500 text-white font-bold text-center shadow-lg shadow-artPurple-900/40 transition-all hover:scale-105">
+                                استكشف الدورات
+                            </a>
+                            <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardBg hover:bg-white/10 text-white border border-white/10 font-bold text-center transition-all hover:border-artPurple-600/50">
+                                تواصل معنا
+                            </a>
+                        </div>
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                            <div>
+                                <h3 class="text-2xl font-black text-artPurple-400">+1,500</h3>
+                                <p class="text-xs text-gray-400 mt-1">طالب متخرج</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-artBronze-500">+25</h3>
+                                <p class="text-xs text-gray-400 mt-1">دورة متخصصة</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-white">100%</h3>
+                                <p class="text-xs text-gray-400 mt-1">رضا الطلاب</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hero Visual / Art Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <!-- Artistic glowing frame -->
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-artPurple-600 to-artBronze-500 rounded-3xl blur-xl opacity-50 animate-pulse"></div>
+                            <div class="relative bg-cardBg border border-white/10 rounded-3xl p-4 shadow-2xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80" alt="لوحات فنية وأدوات رسم" class="w-full h-80 sm:h-96 object-cover rounded-2xl transition-transform duration-500 hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/600x400/181622/7c3aed?text=Art+Institute';">
+                                <div class="absolute bottom-6 right-6 left-6 bg-darkBg/80 backdrop-blur-md p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-artPurple-700/50 flex items-center justify-center text-artPurple-300">
+                                            <i class="fa-solid fa-award"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm">ورش عمل حصرية</h4>
+                                            <p class="text-xs text-gray-400">للصبار والكبار بجميع المستويات</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs px-3 py-1 bg-artBronze-600 text-white rounded-full font-bold">متاح الآن</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-cardBg/50 border-t border-b border-white/5 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">من نحن</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">رؤيتنا في نشر الثقافة والإبداع</h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        نؤمن في معهد الفنون أن الإبداع لغة عالمية كامنة في داخل كل فرد منا. هدفنا هو صقل هذه المهارات وتقديم بيئة تعليمية احترافية تحت إشراف نخبة من الفنانين والخبراء الأكاديميين.
+                    </p>
+                </div>
+
+                <!-- 3 Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-8 hover:border-artPurple-600/50 transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-14 h-14 rounded-2xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-2xl mb-6 group-hover:bg-artPurple-700 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">مدربون معتمدون</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            نخبة من الفنانين المحترفين وأساتذة الفنون التشكيلة والرقمية لتقديم إرشاد شخصي ومباشر لكل طالب.
+                        </p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-8 hover:border-artPurple-600/50 transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-14 h-14 rounded-2xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-2xl mb-6 group-hover:bg-artPurple-700 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-paint-roller"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">استوديوهات مجهزة</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            مرافق واستوديوهات فنية مجهزة بأحدث أدوات الرسم، الإضاءة، الطين والخزف، وبرمجيات التصميم الحديثة.
+                        </p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-8 hover:border-artPurple-600/50 transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-14 h-14 rounded-2xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-2xl mb-6 group-hover:bg-artPurple-700 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">شهادات معتمدة</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            احصل على شهادة تخرج معتمدة من معهد الفنون تؤهلءك لبدء مسيرتك الفنية الاحترافية أو المعارض الشخصية.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="py-20 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                    <div>
+                        <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">دوراتنا المتميزة</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2">اختر مسارك الفني القادم</h2>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0">
+                        برامج تدريبية مصممة بعناية تناسب كافة المستويات بدءاً من الهواة وصولاً للمستوى الاحترافي.
+                    </p>
+                </div>
+
+                <!-- Courses Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl overflow-hidden group hover:border-artPurple-600/50 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden h-48">
+                                <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=600&q=80" alt="ورشة الرسم الزيتي" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x300/181622/7c3aed?text=Painting';">
+                                <div class="absolute top-3 left-3 bg-darkBg/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-artPurple-300">
+                                    <i class="fa-solid fa-clock ml-1"></i> 6 أسابيع
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-artPurple-400 transition-colors">ورشة الرسم الزيتي</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
+                                    تعلم أساسيات الألوان الزيتية، المزج اللوني، وتشكيل الظلال والضوء على اللوحات القماشية.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-white/5 mt-auto">
+                            <div>
+                                <span class="text-xs text-gray-400 block">السعر</span>
+                                <span class="text-lg font-black text-artBronze-500">120 د.أ</span>
+                            </div>
+                            <button onclick="openEnrollModal('ورشة الرسم الزيتي')" class="px-4 py-2 rounded-xl bg-artPurple-700 hover:bg-artPurple-600 text-white text-xs font-bold transition-all shadow-md shadow-artPurple-900/30">
+                                سجل الآن
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl overflow-hidden group hover:border-artPurple-600/50 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden h-48">
+                                <img src="https://images.unsplash.com/photo-1626544827763-d516dce335e2?auto=format&fit=crop&w=600&q=80" alt="التصميم الرقمي" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x300/181622/7c3aed?text=Digital+Art';">
+                                <div class="absolute top-3 left-3 bg-darkBg/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-artPurple-300">
+                                    <i class="fa-solid fa-clock ml-1"></i> 8 أسابيع
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-artPurple-400 transition-colors">أساسيات التصميم الرقمي</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
+                                    احتراف الرسم على الأجهزة اللوحية، استخدام برامج التصميم، وتطوير الهوية البصرية.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-white/5 mt-auto">
+                            <div>
+                                <span class="text-xs text-gray-400 block">السعر</span>
+                                <span class="text-lg font-black text-artBronze-500">150 د.أ</span>
+                            </div>
+                            <button onclick="openEnrollModal('أساسيات التصميم الرقمي')" class="px-4 py-2 rounded-xl bg-artPurple-700 hover:bg-artPurple-600 text-white text-xs font-bold transition-all shadow-md shadow-artPurple-900/30">
+                                سجل الآن
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl overflow-hidden group hover:border-artPurple-600/50 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden h-48">
+                                <img src="https://images.unsplash.com/photo-1582561271295-812e9b119106?auto=format&fit=crop&w=600&q=80" alt="فنون الخط العربي" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x300/181622/7c3aed?text=Calligraphy';">
+                                <div class="absolute top-3 left-3 bg-darkBg/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-artPurple-300">
+                                    <i class="fa-solid fa-clock ml-1"></i> 5 أسابيع
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-artPurple-400 transition-colors">فن الخط العربي</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
+                                    تعلم قواعد خط الرقعة والنسخ والثلث على أيدي خطاطين معتمدين وقواعد التكوين الأصيل.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-white/5 mt-auto">
+                            <div>
+                                <span class="text-xs text-gray-400 block">السعر</span>
+                                <span class="text-lg font-black text-artBronze-500">90 د.أ</span>
+                            </div>
+                            <button onclick="openEnrollModal('فن الخط العربي')" class="px-4 py-2 rounded-xl bg-artPurple-700 hover:bg-artPurple-600 text-white text-xs font-bold transition-all shadow-md shadow-artPurple-900/30">
+                                سجل الآن
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Course 4 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl overflow-hidden group hover:border-artPurple-600/50 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden h-48">
+                                <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=600&q=80" alt="النحت والخزف" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x300/181622/7c3aed?text=Sculpture';">
+                                <div class="absolute top-3 left-3 bg-darkBg/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-artPurple-300">
+                                    <i class="fa-solid fa-clock ml-1"></i> 7 أسابيع
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-artPurple-400 transition-colors">النحت والخزف</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
+                                    مهارات التعامل مع الطين والصلصال، التشكيل المجسم، والتححريق والطلاء الزجاجي الفني.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-white/5 mt-auto">
+                            <div>
+                                <span class="text-xs text-gray-400 block">السعر</span>
+                                <span class="text-lg font-black text-artBronze-500">140 د.أ</span>
+                            </div>
+                            <button onclick="openEnrollModal('النحت والخزف')" class="px-4 py-2 rounded-xl bg-artPurple-700 hover:bg-artPurple-600 text-white text-xs font-bold transition-all shadow-md shadow-artPurple-900/30">
+                                سجل الآن
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 bg-cardBg/50 border-t border-b border-white/5 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">معرض الأعمال</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">إبداعات طلابنا وفنانينا</h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        نخبة من الأعمال الفنية المتميزة التي أنجزها طلاب المعهد خلال ورش العمل والدورات المختلفة.
+                    </p>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="relative overflow-hidden rounded-2xl group h-72 border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="لوحة فنية تشكيلية" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/600x400/181622/7c3aed?text=Gallery+1';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <h4 class="font-bold text-lg text-white">لوحة التناغم اللوني</h4>
+                            <p class="text-xs text-artPurple-300">أعمال طلاب ورشة الرسم الزيتي</p>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group h-72 border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80" alt="أعمال النحت الفني" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/600x400/181622/7c3aed?text=Gallery+2';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <h4 class="font-bold text-lg text-white">منحوتات طينية معاصرة</h4>
+                            <p class="text-xs text-artPurple-300">قسم النحت والخزف</p>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group h-72 border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="تصاميم رقمية ابداعية" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/600x400/181622/7c3aed?text=Gallery+3';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <h4 class="font-bold text-lg text-white">تصميم رقمي متقدم</h4>
+                            <p class="text-xs text-artPurple-300">ورشة التصميم الرقمي</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing & Packages Section -->
+        <section id="pricing" class="py-20 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">الأسعار والباقات</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">باقات تناسب طموحاتك الإبداعية</h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        اختر الباقة المناسبة لاحتياجاتك التعليمية واستمتع بتجربة تدريبية متكاملة.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                    <!-- Pricing Card 1 -->
+                    <div class="bg-cardBg border border-white/10 rounded-3xl p-8 flex flex-col justify-between hover:border-artPurple-600/50 transition-all">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">الباقة الأساسية</h3>
+                            <p class="text-gray-400 text-xs mb-6">مناسبة للمبتدئين والهواة الراغبين بتعلم المبادئ.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">80</span>
+                                <span class="text-artBronze-500 font-bold mr-2">د.أ / شهرياً</span>
+                            </div>
+                            <ul class="space-y-4 text-sm text-gray-300 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> حضور دورة واحدة شهرياً</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> استخدام الاستوديو الأساسي</li>
+                                <li class="flex items-center gap-3 text-gray-500"><i class="fa-solid fa-xmark"></i> جلسات توجيه فردية</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-center text-sm transition-all border border-white/10">اختر الأساسية</a>
+                    </div>
+
+                    <!-- Pricing Card 2 (Featured) -->
+                    <div class="bg-gradient-to-b from-artPurple-900/40 to-cardBg border-2 border-artPurple-600 rounded-3xl p-8 flex flex-col justify-between relative shadow-2xl scale-105">
+                        <div class="absolute -top-4 right-1/2 translate-x-1/2 bg-gradient-to-r from-artPurple-600 to-artBronze-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+                            الأكثر طلباً ⭐
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-white">الباقة المتقدمة</h3>
+                            <p class="text-gray-300 text-xs mb-6">للفنانين الباحثين عن احتراف مهارات معينة.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">150</span>
+                                <span class="text-artBronze-500 font-bold mr-2">د.أ / شهرياً</span>
+                            </div>
+                            <ul class="space-y-4 text-sm text-gray-300 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> حضور دورتين شهرياً</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> استخدام الاستوديو المجهز بالكامل</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> جلستان توجيه فردية مع فنان</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="w-full py-3 rounded-xl bg-gradient-to-r from-artPurple-700 to-artBronze-600 hover:from-artPurple-600 hover:to-artBronze-500 text-white font-bold text-center text-sm shadow-lg transition-all">اختر المتقدمة</a>
+                    </div>
+
+                    <!-- Pricing Card 3 -->
+                    <div class="bg-cardBg border border-white/10 rounded-3xl p-8 flex flex-col justify-between hover:border-artPurple-600/50 transition-all">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">الباقة الشاملة</h3>
+                            <p class="text-gray-400 text-xs mb-6">للمحترفين والراغبين في إتقان كافة الفنون.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">250</span>
+                                <span class="text-artBronze-500 font-bold mr-2">د.أ / شهرياً</span>
+                            </div>
+                            <ul class="space-y-4 text-sm text-gray-300 mb-8">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> دورات غير محدودة</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> أولوية الحجز في الاستوديوهات</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-artPurple-400"></i> إشراف وتوجيه خاص مستمر</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-center text-sm transition-all border border-white/10">اختر الشاملة</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-cardBg/50 border-t border-b border-white/5 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">آراء العملاء</span>
+                    <h2 class="text3xl sm:text-4xl font-extrabold text-white">ماذا يقول طلابنا عنا</h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        قصص نجاح وإلهام من طلابنا الذين طوروا مهاراتهم الفنية معنا في معهد الفنون.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                "تجربة رائعة جداً! تعلمت أساسيات الرسم الزيتي من الصفر وأصبحت قادراً على رسم لوحات متكاملة بفضل توجيهات الأستاذة المحترفين."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-6 border-t border-white/5 mt-6">
+                            <div class="w-10 h-10 rounded-full bg-artPurple-700/50 flex items-center justify-center font-bold text-artPurple-300">س</div>
+                            <div>
+                                <h4 class="font-bold text-sm">سارة أحمد</h4>
+                                <span class="text-xs text-gray-400">طالبة ورشة الرسم</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                "الاستوديوهات مجهزة بشكل احترافي للغاية ومستوى الدعم الفني فاق توقعاتي. أنصح كل مهتم بالفنون الرقمية بالانضمام فوراً."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-6 border-t border-white/5 mt-6">
+                            <div class="w-10 h-10 rounded-full bg-artBronze-600/50 flex items-center justify-center font-bold text-white">م</div>
+                            <div>
+                                <h4 class="font-bold text-sm">محمد خالد</h4>
+                                <span class="text-xs text-gray-400">طالب التصميم الرقمي</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-cardBg border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                "ابنتي أحبت دورة الخط العربي كثيراً وتحسنت مهاراتها بشكل ملحوظ. شكراً لطاقم معهد الفنون على اهتمامهم وحسن معاملتهم."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-6 border-t border-white/5 mt-6">
+                            <div class="w-10 h-10 rounded-full bg-artPurple-800/50 flex items-center justify-center font-bold text-artPurple-300">ل</div>
+                            <div>
+                                <h4 class="font-bold text-sm">ليلى عبد الله</h4>
+                                <span class="text-xs text-gray-400">ولي أمر طالبة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="py-20 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <!-- Contact Info -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="text-artPurple-400 font-bold text-sm tracking-wider uppercase">تواصل معنا</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold">ابدأ رحلتك الفنية اليوم</h2>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            يسعدنا الإجابة عن استفساراتكم ومساعدتكم في اختيار الدورة أو الباقة المناسبة لشغفكم الفني.
+                        </p>
+
+                        <div class="space-y-6 pt-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-lg flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-white">العنوان</h4>
+                                    <p class="text-xs text-gray-400 mt-1">شارع الثقافة والفنون، عمان، الأردن</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-lg flex-shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-white">رقم الهاتف</h4>
+                                    <p class="text-xs text-gray-400 mt-1">+962 6 000 0000</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-artPurple-900/50 border border-artPurple-600/30 flex items-center justify-center text-artPurple-400 text-lg flex-shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-white">البريد الإلكتروني</h4>
+                                    <p class="text-xs text-gray-400 mt-1">info@artinstitute.jo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact & Enrollment Form -->
+                    <div class="lg:col-span-7 bg-cardBg border border-white/10 rounded-3xl p-8 shadow-2xl">
+                        <h3 class="text-xl font-bold mb-6">نموذج التسجيل والاستفسار</h3>
+                        <form id="contact-form" class="space-y-4" novalidate>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="fullName" class="block text-xs font-semibold text-gray-300 mb-2">الاسم الكامل *</label>
+                                    <input type="text" id="fullName" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-artPurple-600 transition-colors" placeholder="ادخل اسمك الكامل">
+                                    <p id="error-fullName" class="text-red-400 text-xs mt-1 hidden"></p>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-semibold text-gray-300 mb-2">البريد الإلكتروني *</label>
+                                    <input type="email" id="email" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-artPurple-600 transition-colors" placeholder="example@domain.com">
+                                    <p id="error-email" class="text-red-400 text-xs mt-1 hidden"></p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="phone" class="block text-xs font-semibold text-gray-300 mb-2">رقم الهاتف *</label>
+                                    <input type="tel" id="phone" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-artPurple-600 transition-colors" placeholder="+962 7XXXXXXXX">
+                                    <p id="error-phone" class="text-red-400 text-xs mt-1 hidden"></p>
+                                </div>
+                                <div>
+                                    <label for="courseSelect" class="block text-xs font-semibold text-gray-300 mb-2">الدورة المهتم بها *</label>
+                                    <select id="courseSelect" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-artPurple-600 transition-colors">
+                                        <option value="">اختر الدورة المناسبة</option>
+                                        <option value="ورشة الرسم الزيتي">ورشة الرسم الزيتي</option>
+                                        <option value="أساسيات التصميم الرقمي">أساسيات التصميم الرقمي</option>
+                                        <option value="فن الخط العربي">فن الخط العربي</option>
+                                        <option value="النحت والخزف">النحت والخزف</option>
+                                    </select>
+                                    <p id="error-courseSelect" class="text-red-400 text-xs mt-1 hidden"></p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs font-semibold text-gray-300 mb-2">الرسالة أو الاستفسار</label>
+                                <textarea id="message" rows="4" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-artPurple-600 transition-colors resize-none" placeholder="اكتب استفسارك هنا..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-artPurple-700 to-artBronze-600 hover:from-artPurple-600 hover:to-artBronze-500 text-white font-bold text-sm shadow-lg shadow-artPurple-900/40 transition-all hover:scale-[1.01]">
+                                إرسال الطلب
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-cardBg border-t border-white/10 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Col 1: Brand -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-artPurple-800 to-artBronze-500 flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-palette text-white text-lg"></i>
+                        </div>
+                        <span class="text-lg font-extrabold text-white">معهد الفنون</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        وجهتك الأولى لاحتراف الفنون البصرية وصقل المواهب الإبداعية بأحدث الطرق والأساليب الأكاديمية.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" aria-label="فيسبوك" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-artPurple-700 text-gray-300 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-facebook-f text-xs"></i>
+                        </a>
+                        <a href="#" aria-label="إنستغرام" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-artPurple-700 text-gray-300 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-instagram text-xs"></i>
+                        </a>
+                        <a href="#" aria-label="تويتر" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-artPurple-700 text-gray-300 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-x-twitter text-xs"></i>
+                        </a>
+                        <a href="#" aria-label="يوتيوب" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-artPurple-700 text-gray-300 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-youtube text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#hero" class="hover:text-white transition-colors">الرئيسية</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">من نحن</a></li>
+                        <li><a href="#courses" class="hover:text-white transition-colors">دوراتنا</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition-colors">المعرض</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Courses List -->
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-4">الدورات</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#courses" class="hover:text-white transition-colors">ورشة الرسم الزيتي</a></li>
+                        <li><a href="#courses" class="hover:text-white transition-colors">أساسيات التصميم الرقمي</a></li>
+                        <li><a href="#courses" class="hover:text-white transition-colors">فن الخط العربي</a></li>
+                        <li><a href="#courses" class="hover:text-white transition-colors">النحت والخزف</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-4">النشرة البريدية</h4>
+                    <p class="text-xs text-gray-400 mb-4">اشترك ليصلك جديد الورش والدورات الفنية.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني" class="w-full bg-darkBg border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-artPurple-600 transition-colors" required>
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-artPurple-700 hover:bg-artPurple-600 text-white font-bold text-xs transition-all shadow-md">اشتراك</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/5 text-center text-xs text-gray-500">
+                <p>حقوق النشر © 2026 معهد الفنون. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactive Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Notification Box System (Replacing alert)
+        function showNotification(title, message, isSuccess = true) {
+            const box = document.getElementById('notification-box');
+            const notifTitle = document.getElementById('notification-title');
+            const notifMsg = document.getElementById('notification-message');
+            const notifIcon = document.getElementById('notification-icon');
+
+            notifTitle.textContent = title;
+            notifMsg.textContent = message;
+
+            if (isSuccess) {
+                notifIcon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+                box.style.borderColor = 'rgba(52, 211, 153, 0.4)';
+            } else {
+                notifIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation text-red-400"></i>';
+                box.style.borderColor = 'rgba(248, 113, 113, 0.4)';
+            }
+
+            box.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                box.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        }
+
+        // Quick enroll modal pre-fill helper
+        function openEnrollModal(courseName) {
+            const select = document.getElementById('courseSelect');
+            select.value = courseName;
+            const contactSection = document.getElementById('contact');
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+            showNotification('جاهز للتسجيل', `تم اختيار "${courseName}". يرجى إكمال نموذج التسجيل أدناه.`, true);
+        }
+
+        // Form Validation & Handling
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Fields
+            const fullName = document.getElementById('fullName');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const courseSelect = document.getElementById('courseSelect');
+
+            // Error elements
+            const errName = document.getElementById('error-fullName');
+            const errEmail = document.getElementById('error-email');
+            const errPhone = document.getElementById('error-phone');
+            const errCourse = document.getElementById('error-courseSelect');
+
+            // Reset errors
+            [errName, errEmail, errPhone, errCourse].forEach(el => {
+                el.textContent = '';
+                el.classList.add('hidden');
+            });
+
+            // Validation checks
+            if (!fullName.value.trim()) {
+                errName.textContent = 'يرجى إدخال الاسم الكامل.';
+                errName.classList.remove('hidden');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                errEmail.textContent = 'يرجى إدخال بريد إلكتروني صحيح.';
+                errEmail.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!phone.value.trim() || phone.value.trim().length < 8) {
+                errPhone.textContent = 'يرجى إدخال رقم هاتف صحيح.';
+                errPhone.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!courseSelect.value) {
+                errCourse.textContent = 'يرجى اختيار الدورة المطلوبة.';
+                errCourse.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (isValid) {
+                showNotification('تم إرسال طلبك بنجاح!', 'سنتواصل معك خلال 24 ساعة لتأكيد الحجز.', true);
+                contactForm.reset();
+            } else {
+                showNotification('خطأ في البيانات', 'يرجى تصحيح الحقول المطلوبة.', false);
+            }
+        });
+
+        // Newsletter Handler
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const input = document.getElementById('newsletterEmail');
+            if (input.value.trim()) {
+                showNotification('شكراً لاشتراكك!', 'تمت إضافة بريدك الإلكتروني بنجاح إلى نشرتنا.', true);
+                input.value = '';
+            }
+        }
+
+        // Fade-in Intersection Observer
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
